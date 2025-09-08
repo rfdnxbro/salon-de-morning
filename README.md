@@ -11,14 +11,26 @@
 - `docs/` ドキュメント（決定記録や設定含む）。
 - `assets/` 画像や静的アセット。
 
-## コマンド（暫定）
-Makefile は雛形のみ。技術スタック確定後に実装します。
+## モノレポ構成（pnpm）
+- `apps/user` 一般ユーザー（CSR, React+Vite+TS+Tailwind）
+- `apps/store` 店舗スタッフ（予約一覧）
+- `apps/client` 派遣クライアントスタッフ（予約一覧）
+- `packages/mocks` モックデータと型
 
-- ビルド: `make build`
-- テスト: `make test`
-- Lint: `make lint`
-- Format: `make fmt`
-- 開発サーバ: `make dev`
+## セットアップとコマンド
+- 依存インストール: `pnpm install`
+- 開発:
+  - 一般ユーザー: `make dev-user`（http://localhost:5173）
+  - 店舗スタッフ: `make dev-store`（http://localhost:5174）
+  - クライアント: `make dev-client`（http://localhost:5175）
+- ビルド: `make build`（3アプリ一括）
+- プレビュー: `make preview-user` など
+- Lint/Format: `make lint` / `make fmt`
+
+## デプロイ（GitHub Pages, サブパス配信）
+- `main` への push で GitHub Actions が 3 アプリをビルドし、`/<repo>/{user,store,client}` に配置します。
+- Vite の `base` はワークフローから `VITE_BASE=/&lt;repo&gt;/&lt;app&gt;` を注入。
+- リポジトリ設定 → Pages → Build and deployment: "GitHub Actions" を選択してください。
 
 ## コーディング規約（要約）
 - インデント2スペース、行幅おおよそ100桁。
@@ -34,4 +46,3 @@ Makefile は雛形のみ。技術スタック確定後に実装します。
 ## セキュリティ
 - 機密情報はコミットしない。`.env.local` を使用し、必要キーは `.env.example` で共有。
 - 追加した設定フラグは `docs/config.md` に記録。
-

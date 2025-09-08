@@ -1,20 +1,37 @@
-.PHONY: build test lint fmt dev help
+.PHONY: build test lint fmt dev help dev-user dev-store dev-client preview-user preview-store preview-client
 
 help:
 	@echo "Targets: build test lint fmt dev"
 
 build:
-	@echo "[build] 技術スタック未確定のため後日実装"
+	@pnpm build
 
 test:
-	@echo "[test] 技術スタック未確定のため後日実装"
+	@pnpm test
 
 lint:
-	@echo "[lint] 技術スタック未確定のため後日実装"
+	@pnpm lint
 
 fmt:
-	@echo "[fmt] 技術スタック未確定のため後日実装"
+	@pnpm fmt
 
 dev:
-	@echo "[dev] 技術スタック未確定のため後日実装"
+	@echo "利用可能: dev-user, dev-store, dev-client"
 
+dev-user:
+	@pnpm dev:user
+
+dev-store:
+	@pnpm dev:store
+
+dev-client:
+	@pnpm dev:client
+
+preview-user:
+	@pnpm preview:user
+
+preview-store:
+	@pnpm preview:store
+
+preview-client:
+	@pnpm preview:client
