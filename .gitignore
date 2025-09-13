@@ -14,6 +14,7 @@ build/
 .turbo/
 .cache/
 .parcel-cache/
+**/tsconfig.tsbuildinfo
 
 # Python
 .venv/
@@ -32,4 +33,3 @@ __pycache__/
 # Coverage
 coverage/
 .nyc_output/
-
