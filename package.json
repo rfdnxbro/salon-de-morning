@@ -1,0 +1,20 @@
+{
+  "name": "salon-de-morning-monorepo",
+  "private": true,
+  "packageManager": "pnpm@9.0.0",
+  "scripts": {
+    "dev:user": "pnpm --filter @app/user dev",
+    "dev:store": "pnpm --filter @app/store dev",
+    "dev:client": "pnpm --filter @app/client dev",
+    "build": "pnpm -r --workspace-concurrency=1 build",
+    "preview:user": "pnpm --filter @app/user preview",
+    "preview:store": "pnpm --filter @app/store preview",
+    "preview:client": "pnpm --filter @app/client preview",
+    "lint": "echo 'ESLintは未設定（必要なら追加）'",
+    "fmt": "prettier --write . || echo 'Prettier未インストール'",
+    "test": "echo 'テストは未設定（MVP後に追加）'"
+  },
+  "devDependencies": {
+    "prettier": "^3.3.3"
+  }
+}
