@@ -33,3 +33,7 @@ __pycache__/
 # Coverage
 coverage/
 .nyc_output/
+
+# Vite cache
+.vite/
+apps/*/.vite/

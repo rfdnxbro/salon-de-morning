@@ -74,8 +74,16 @@ pnpm -v               # 9.x を確認
 
 ## デプロイ（GitHub Pages, サブパス配信）
 - `main` への push で GitHub Actions が 3 アプリをビルドし、`/<repo>/{user,store,client}` に配置します。
-- Vite の `base` はワークフローから `VITE_BASE=/<repo>/<app>` を注入します。
+- Vite の `base` はワークフローから `VITE_BASE=/<repo>/<app>/`（末尾スラッシュ必須）を注入します。
 - リポジトリ設定 → Pages → Build and deployment: "GitHub Actions" を選択してください。
+
+公開 URL 例（`<user>.github.io/<repo>`）
+- ランディング: `https://<user>.github.io/<repo>/`
+- 一般ユーザー: `https://<user>.github.io/<repo>/user/`
+- 店舗スタッフ: `https://<user>.github.io/<repo>/store/`
+- 派遣クライアント: `https://<user>.github.io/<repo>/client/`
+
+メモ: GitHub Pages では Jekyll 処理を避けるため `.nojekyll` を配置しています。404 直リンク時はルートへリダイレクトします。
 
 ローカル開発時は `VITE_BASE` の設定は不要です（ルート `/` で動作）。
 
@@ -90,7 +98,8 @@ pnpm -v               # 9.x を確認
 - ポート衝突: `--port` オプションで変更（例: `pnpm --filter @app/user dev -- --port 5176`）。
 - GitHub Pages で白画面:
   - Pages 設定が "GitHub Actions" になっているか確認。
-  - ビルドログで `VITE_BASE=/<repo>/<app>` が入っているか確認。
+  - ビルドログで `VITE_BASE=/<repo>/<app>/` が入っているか確認。
+  - URL は末尾スラッシュ付き（例: `/user/`）でアクセスする。
 
 ## コントリビューション
 - コミット/PR/ドキュメントは日本語。小さく論理的に分割し、関連 Issue/Notion を記載。

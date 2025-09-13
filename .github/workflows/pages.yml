@@ -35,7 +35,7 @@ jobs:
 
       - name: Build user
         env:
-          VITE_BASE: "/${{ github.event.repository.name }}/user"
+          VITE_BASE: "/${{ github.event.repository.name }}/user/"
         run: |
           pnpm --filter @app/user build
           mkdir -p dist-all/user
@@ -43,7 +43,7 @@ jobs:
 
       - name: Build store
         env:
-          VITE_BASE: "/${{ github.event.repository.name }}/store"
+          VITE_BASE: "/${{ github.event.repository.name }}/store/"
         run: |
           pnpm --filter @app/store build
           mkdir -p dist-all/store
@@ -51,11 +51,17 @@ jobs:
 
       - name: Build client
         env:
-          VITE_BASE: "/${{ github.event.repository.name }}/client"
+          VITE_BASE: "/${{ github.event.repository.name }}/client/"
         run: |
           pnpm --filter @app/client build
           mkdir -p dist-all/client
           cp -r apps/client/dist/* dist-all/client/
+
+      - name: Add root index, 404, and nojekyll
+        run: |
+          cp assets/index.html dist-all/index.html
+          cp assets/404.html dist-all/404.html
+          touch dist-all/.nojekyll
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
@@ -72,4 +78,3 @@ jobs:
       - name: Deploy to GitHub Pages
         id: deployment
         uses: actions/deploy-pages@v4
-

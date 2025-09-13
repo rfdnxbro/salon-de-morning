@@ -1,0 +1,27 @@
+<!doctype html>
+<meta charset="utf-8" />
+<title>Redirecting…</title>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<p>Not Found. Redirecting…</p>
+<script>
+  (function () {
+    var path = location.pathname; // e.g. /<repo>/user/foo
+    var parts = path.split('/').filter(Boolean); // [repo, maybeApp, ...]
+    if (parts.length >= 2) {
+      var repo = '/' + parts[0];
+      var app = parts[1];
+      if (app === 'user' || app === 'store' || app === 'client') {
+        var target = repo + '/' + app + '/';
+        location.replace(target);
+        return;
+      }
+    }
+    // fallback to repo root index
+    if (parts.length >= 1) {
+      location.replace('/' + parts[0] + '/');
+    } else {
+      location.replace('/');
+    }
+  })();
+</script>
+
