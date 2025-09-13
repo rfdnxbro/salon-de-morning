@@ -85,6 +85,13 @@ pnpm -v               # 9.x を確認
 
 メモ: GitHub Pages では Jekyll 処理を避けるため `.nojekyll` を配置しています。404 直リンク時はルートへリダイレクトします。
 
+### 公開リンク（本番）
+- ランディング: https://rfdnxbro.github.io/salon-de-morning/
+- 一般ユーザー: https://rfdnxbro.github.io/salon-de-morning/user/
+- 店舗スタッフ: https://rfdnxbro.github.io/salon-de-morning/store/
+- 派遣クライアント: https://rfdnxbro.github.io/salon-de-morning/client/
+
+
 ローカル開発時は `VITE_BASE` の設定は不要です（ルート `/` で動作）。
 
 ## モックデータ
