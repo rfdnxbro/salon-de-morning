@@ -46,7 +46,11 @@ pnpm -v               # 9.x を確認
 - 追加済み: `cn` ユーティリティと `Button` コンポーネント（各アプリに同名配置）。
   - 使い方: `import { Button } from '@/components/ui/button'`
   - 例: `<Button variant="secondary" size="sm">ボタン</Button>`
-- トークンの編集場所: `apps/*/src/styles.css` の `@layer base`（`--primary`/`--radius` など）。
+ - 共通パッケージ: `@sdm/ui` を追加し、`Card`/`Input`/`Badge`/`Table`/`Label` を提供。
+   - 使い方例:
+     - `import { Card, CardHeader, CardTitle, CardContent } from '@sdm/ui'`
+     - `import { Input, Badge, Table, TableHeader, TableRow, TableHead, TableBody, TableCell } from '@sdm/ui'`
+  - トークンの編集場所: `apps/*/src/styles.css` の `@layer base`（`--primary`/`--radius` など）。
 - ダークモード: `html` に `class="dark"` を付与で切替（`darkMode: ['class']`）。
   - スニペット: `document.documentElement.classList.toggle('dark')`
 - アイコン: `lucide-react` を利用可能。
