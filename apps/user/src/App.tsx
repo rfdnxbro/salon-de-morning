@@ -1,9 +1,10 @@
-import { useMemo, useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { stores, slots } from 'mocks';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Badge } from '@/components/ui/badge';
+import { Logo } from './components/logo';
 
 export function App() {
   const [q, setQ] = useState('');
@@ -20,7 +21,10 @@ export function App() {
 
   return (
     <div className="mx-auto max-w-3xl p-6">
-      <h1 className="text-2xl font-bold mb-6">サロン検索（モック）</h1>
+      <header className="mb-6 flex items-center justify-between">
+        <Logo />
+      </header>
+      <TitleFromEnv fallback="サロン検索" />
 
       <div className="mb-6 space-y-2">
         <Label htmlFor="q">店舗名で検索</Label>
@@ -51,9 +55,20 @@ export function App() {
                   <ul className="list-disc list-inside text-sm">
                     {next.map((sl) => (
                       <li key={sl.id}>
-                        {new Date(sl.startAt).toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' })}
+                        {new Date(sl.startAt).toLocaleString('ja-JP', {
+                          timeZone: 'Asia/Tokyo',
+                          year: 'numeric',
+                          month: '2-digit',
+                          day: '2-digit',
+                          hour: '2-digit',
+                          minute: '2-digit'
+                        })}
                         {' '}～{' '}
-                        {new Date(sl.endAt).toLocaleTimeString('ja-JP', { timeZone: 'Asia/Tokyo' })}
+                        {new Date(sl.endAt).toLocaleTimeString('ja-JP', {
+                          timeZone: 'Asia/Tokyo',
+                          hour: '2-digit',
+                          minute: '2-digit'
+                        })}
                         {' '}（定員{sl.capacity}）
                       </li>
                     ))}
@@ -76,4 +91,13 @@ export function App() {
       </div>
     </div>
   );
+}
+
+function TitleFromEnv({ fallback }: { fallback: string }) {
+  const site = import.meta.env.VITE_SITE_NAME as string | undefined;
+  const title = (import.meta.env.VITE_TITLE_USER as string | undefined) ?? fallback;
+  useEffect(() => {
+    document.title = site ? `${site} | ${title}` : title;
+  }, [site, title]);
+  return <h1 className="text-2xl font-bold mb-6">{title}</h1>;
 }

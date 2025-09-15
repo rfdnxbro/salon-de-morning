@@ -1,15 +1,30 @@
 import { reservations, joinReservation } from 'mocks';
+import { useEffect } from 'react';
+import { Logo } from './components/logo';
 import { Table, TableHeader, TableHead, TableRow, TableBody, TableCell } from '@/components/ui/table';
 import { Badge } from '@/components/ui/badge';
 
 export function App() {
+  const site = import.meta.env.VITE_SITE_NAME as string | undefined;
+  const title = (import.meta.env.VITE_TITLE_STORE as string | undefined) ?? '店舗ダッシュボード';
+  useEffect(() => {
+    document.title = site ? `${site} | ${title}` : title;
+  }, [site, title]);
+  const statusJa: Record<'draft' | 'confirmed' | 'cancelled', string> = {
+    draft: '下書き',
+    confirmed: '確定',
+    cancelled: '取消'
+  };
   const joined = reservations
     .map(joinReservation)
     .filter((r): r is NonNullable<ReturnType<typeof joinReservation>> => !!r);
 
   return (
     <div className="mx-auto max-w-4xl p-6">
-      <h1 className="text-2xl font-bold mb-4">予約一覧（店舗スタッフ・モック）</h1>
+      <header className="mb-4 flex items-center justify-between">
+        <Logo />
+      </header>
+      <h1 className="text-2xl font-bold mb-4">{title}</h1>
       <Table>
         <TableHeader>
           <TableRow>
@@ -28,14 +43,25 @@ export function App() {
               <TableCell>{store.name}</TableCell>
               <TableCell>{user.name}</TableCell>
               <TableCell>
-                {new Date(slot.startAt).toLocaleString('ja-JP', { timeZone: 'Asia/Tokyo' })}
+                {new Date(slot.startAt).toLocaleString('ja-JP', {
+                  timeZone: 'Asia/Tokyo',
+                  year: 'numeric',
+                  month: '2-digit',
+                  day: '2-digit',
+                  hour: '2-digit',
+                  minute: '2-digit'
+                })}
               </TableCell>
               <TableCell>
-                {new Date(slot.endAt).toLocaleTimeString('ja-JP', { timeZone: 'Asia/Tokyo' })}
+                {new Date(slot.endAt).toLocaleTimeString('ja-JP', {
+                  timeZone: 'Asia/Tokyo',
+                  hour: '2-digit',
+                  minute: '2-digit'
+                })}
               </TableCell>
               <TableCell>
                 <Badge variant={reservation.status === 'cancelled' ? 'destructive' : 'secondary'}>
-                  {reservation.status}
+                  {statusJa[reservation.status]}
                 </Badge>
               </TableCell>
             </TableRow>
