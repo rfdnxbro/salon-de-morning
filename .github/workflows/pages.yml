@@ -55,6 +55,13 @@ jobs:
           pnpm --filter @app/client build
           mkdir -p dist-all/client
           cp -r apps/client/dist/* dist-all/client/
+      - name: Build admin
+        env:
+          VITE_BASE: "/${{ github.event.repository.name }}/admin/"
+        run: |
+          pnpm --filter @app/admin build
+          mkdir -p dist-all/admin
+          cp -r apps/admin/dist/* dist-all/admin/
 
       - name: Add root index, 404, and nojekyll
         run: |

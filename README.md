@@ -23,7 +23,7 @@ pnpm -v               # 9.x を確認
 - フロント: React + Vite（CSR）+ TypeScript `strict` + Tailwind CSS
 - データ: `packages/mocks` の TypeScript モック（外部 API なし）
 - モノレポ: pnpm workspaces
-- デプロイ: GitHub Pages（Actions）/ サブパス `/<repo>/{user,store,client}`
+- デプロイ: GitHub Pages（Actions）/ サブパス `/<repo>/{user,store,client,admin}`
 
 詳細は `docs/adr/0001-tech-stack.md` と `docs/schema.md` を参照してください。
 
@@ -32,14 +32,15 @@ pnpm -v               # 9.x を確認
 - `tests/` 単体テスト（`src/` をミラー）。
 - `docs/` ドキュメント（決定記録・設定含む）。
 - `assets/` 画像や静的アセット。
-- `apps/` SPA 群（`user`/`store`/`client`）。
+- `apps/` SPA 群（`user`/`store`/`client`/`admin`）。
 - `packages/mocks` 型とモックデータ。
 
 ## モノレポ構成（pnpm）
-- `apps/user` 一般ユーザー（CSR, React+Vite+TS+Tailwind）
-- `apps/store` 店舗スタッフ（予約一覧）
-- `apps/client` 派遣クライアントスタッフ（予約一覧）
-- `packages/mocks` モックデータと型
+ - `apps/user` 一般ユーザー（CSR, React+Vite+TS+Tailwind）
+ - `apps/store` 店舗スタッフ（予約一覧）
+ - `apps/client` 派遣クライアントスタッフ（予約一覧）
+ - `apps/admin` 社内スタッフ（ユーザー一覧・クライアント一覧）
+ - `packages/mocks` モックデータと型
 
 ## UI/デザイン
 - 方針: shadcn/ui 互換（CLI は未導入）。Tailwind のデザイントークンと `cva` を採用。
@@ -66,6 +67,7 @@ pnpm -v               # 9.x を確認
 - 一般ユーザー: `make dev-user` → http://localhost:5173
 - 店舗スタッフ: `make dev-store` → http://localhost:5174
 - 派遣クライアント: `make dev-client` → http://localhost:5175
+ - 管理（社内）: `make dev-admin` → http://localhost:5176
 
 3) ビルド/プレビュー
 - ビルド（全アプリ）: `make build`
@@ -77,7 +79,7 @@ pnpm -v               # 9.x を確認
 - テスト: 未設定（MVP 後に追加予定）。
 
 ## デプロイ（GitHub Pages, サブパス配信）
-- `main` への push で GitHub Actions が 3 アプリをビルドし、`/<repo>/{user,store,client}` に配置します。
+- `main` への push で GitHub Actions が 4 アプリをビルドし、`/<repo>/{user,store,client,admin}` に配置します。
 - Vite の `base` はワークフローから `VITE_BASE=/<repo>/<app>/`（末尾スラッシュ必須）を注入します。
 - リポジトリ設定 → Pages → Build and deployment: "GitHub Actions" を選択してください。
 
@@ -86,6 +88,7 @@ pnpm -v               # 9.x を確認
 - 一般ユーザー: `https://<user>.github.io/<repo>/user/`
 - 店舗スタッフ: `https://<user>.github.io/<repo>/store/`
 - 派遣クライアント: `https://<user>.github.io/<repo>/client/`
+ - 管理（社内）: `https://<user>.github.io/<repo>/admin/`
 
 メモ: GitHub Pages では Jekyll 処理を避けるため `.nojekyll` を配置しています。404 直リンク時はルートへリダイレクトします。
 
@@ -94,6 +97,7 @@ pnpm -v               # 9.x を確認
 - 一般ユーザー: https://rfdnxbro.github.io/salon-de-morning/user/
 - 店舗スタッフ: https://rfdnxbro.github.io/salon-de-morning/store/
 - 派遣クライアント: https://rfdnxbro.github.io/salon-de-morning/client/
+ - 管理（社内）: https://rfdnxbro.github.io/salon-de-morning/admin/
 
 
 ローカル開発時は `VITE_BASE` の設定は不要です（ルート `/` で動作）。

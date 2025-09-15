@@ -11,11 +11,13 @@
 - `VITE_TITLE_USER` 例: `サロン検索`
 - `VITE_TITLE_STORE` 例: `店舗ダッシュボード`
 - `VITE_TITLE_CLIENT` 例: `派遣クライアント`
+- `VITE_TITLE_ADMIN` 例: `管理ダッシュボード`
   - 各アプリの画面タイトル（`document.title` の接尾）
 
 - `VITE_BRAND_SUBLABEL_USER` 例: `一般ユーザー`
 - `VITE_BRAND_SUBLABEL_STORE` 例: `店舗スタッフ`
 - `VITE_BRAND_SUBLABEL_CLIENT` 例: `クライアント`
+- `VITE_BRAND_SUBLABEL_ADMIN` 例: `管理（社内）`
   - ロゴ右側に小さく表示するサブラベル
 
 - `VITE_BASE` 例: `/salon-de-morning/user/`
