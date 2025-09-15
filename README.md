@@ -101,7 +101,8 @@ pnpm -v               # 9.x を確認
 ## モックデータ
 - 型とデータ: `packages/mocks`
   - 型定義: `packages/mocks/src/types.ts`
-  - 初期データ: `packages/mocks/src/data.ts`
+  - 初期データ: `packages/mocks/src/data.json`（JSTの `'YYYY-MM-DD HH:mm:ss'` で保持）
+  - ローダ: `packages/mocks/src/data.ts`（日時を ms に変換してエクスポート）
 - 予約情報は「予約枠」に紐づき、枠の `capacity` で人数を管理します。
 
 ## トラブルシューティング
