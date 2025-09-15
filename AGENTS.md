@@ -34,6 +34,22 @@ Makefile やパッケージスクリプトは自己説明的なターゲット�
 - PR: 背景・目的を記述し、UI 変更はスクリーンショットを添付。該当する Notion 節へのリンクを含める。
 - チェックリスト: CI 通過、テスト更新、挙動変更時はドキュメント更新。
 
+## ブランチ戦略（新機能開発）
+- 基本の流れ: 「ブランチ作成 → 開発 → PR → Merge → `main` へ戻って最新化 → ブランチ削除（ローカル/リモート）」
+- 作業開始前に `main` を最新化する。
+  - `git checkout main && git pull origin main`
+- 新機能ごとにブランチを切る（例: `feature/123-短い説明`）。
+  - `git switch -c feature/<issue-number>-<slug>`
+- 実装し、適切にコミットしてリモートへ初回プッシュ。
+  - `git push -u origin feature/<issue-number>-<slug>`
+- GitHub 上で PR を作成し、レビュワーをアサイン。該当 Notion 節へのリンクを含める。
+- PR が merge されたら、ローカルで `main` に戻り最新を取得。
+  - `git checkout main && git pull origin main`
+- 使い終わったブランチを削除。
+  - ローカル: `git branch -d feature/<issue-number>-<slug>`
+  - リモート: `git push origin --delete feature/<issue-number>-<slug>`
+  - 参照整理（任意）: `git fetch -p`
+
 ## セキュリティ・設定
 - 秘密情報はコミットしない。`.env.local` を使用し、必要キーは `.env.example` で共有。
 - 追加した設定フラグは `docs/config.md` に記録。

@@ -1,0 +1,39 @@
+{
+  "stores": [
+    { "id": "st_1", "name": "銀座サロン", "code": "GINZA", "address": "東京都中央区", "createdAt": "2025-09-15 12:00:00", "updatedAt": "2025-09-15 12:00:00" },
+    { "id": "st_2", "name": "渋谷サロン", "code": "SHIBUYA", "address": "東京都渋谷区", "createdAt": "2025-09-15 12:00:00", "updatedAt": "2025-09-15 12:00:00" }
+  ],
+  "clients": [
+    { "id": "cl_1", "name": "ABC派遣", "code": "ABC", "address": "東京都千代田区", "createdAt": "2025-09-15 12:00:00", "updatedAt": "2025-09-15 12:00:00" }
+  ],
+  "users": [
+    { "id": "u_1", "name": "山田太郎", "createdAt": "2025-09-15 12:00:00", "updatedAt": "2025-09-15 12:00:00" },
+    { "id": "u_2", "name": "佐藤花子", "createdAt": "2025-09-15 12:00:00", "updatedAt": "2025-09-15 12:00:00" }
+  ],
+  "slots": [
+    { "id": "sl_1",  "storeId": "st_1", "clientId": "cl_1", "startAt": "2025-09-16 09:00:00", "endAt": "2025-09-16 11:00:00", "capacity": 1, "status": "active", "title": "ダミースロット01", "createdAt": "2025-09-15 12:00:00", "updatedAt": "2025-09-15 12:00:00" },
+    { "id": "sl_2",  "storeId": "st_2",                      "startAt": "2025-09-16 13:00:00", "endAt": "2025-09-16 14:00:00", "capacity": 2, "status": "active", "title": "ダミースロット02", "createdAt": "2025-09-15 12:00:00", "updatedAt": "2025-09-15 12:00:00" },
+    { "id": "sl_3",  "storeId": "st_1", "clientId": "cl_1", "startAt": "2025-09-16 15:00:00", "endAt": "2025-09-16 17:00:00", "capacity": 3, "status": "active", "title": "ダミースロット03", "createdAt": "2025-09-15 12:00:00", "updatedAt": "2025-09-15 12:00:00" },
+    { "id": "sl_4",  "storeId": "st_2",                      "startAt": "2025-09-18 10:00:00", "endAt": "2025-09-18 11:00:00", "capacity": 1, "status": "active", "title": "ダミースロット04", "createdAt": "2025-09-15 12:00:00", "updatedAt": "2025-09-15 12:00:00" },
+    { "id": "sl_5",  "storeId": "st_1", "clientId": "cl_1", "startAt": "2025-09-19 12:00:00", "endAt": "2025-09-19 13:00:00", "capacity": 2, "status": "active", "title": "ダミースロット05", "createdAt": "2025-09-15 12:00:00", "updatedAt": "2025-09-15 12:00:00" },
+    { "id": "sl_6",  "storeId": "st_2",                      "startAt": "2025-09-19 16:00:00", "endAt": "2025-09-19 17:00:00", "capacity": 3, "status": "active", "title": "ダミースロット06", "createdAt": "2025-09-15 12:00:00", "updatedAt": "2025-09-15 12:00:00" },
+    { "id": "sl_7",  "storeId": "st_1", "clientId": "cl_1", "startAt": "2025-09-20 09:00:00", "endAt": "2025-09-20 10:00:00", "capacity": 1, "status": "active", "title": "ダミースロット07", "createdAt": "2025-09-15 12:00:00", "updatedAt": "2025-09-15 12:00:00" },
+    { "id": "sl_8",  "storeId": "st_2",                      "startAt": "2025-09-20 14:00:00", "endAt": "2025-09-20 15:00:00", "capacity": 2, "status": "active", "title": "ダミースロット08", "createdAt": "2025-09-15 12:00:00", "updatedAt": "2025-09-15 12:00:00" },
+    { "id": "sl_9",  "storeId": "st_1", "clientId": "cl_1", "startAt": "2025-09-22 11:00:00", "endAt": "2025-09-22 12:00:00", "capacity": 3, "status": "active", "title": "ダミースロット09", "createdAt": "2025-09-15 12:00:00", "updatedAt": "2025-09-15 12:00:00" },
+    { "id": "sl_10", "storeId": "st_2",                      "startAt": "2025-09-23 09:00:00", "endAt": "2025-09-23 10:00:00", "capacity": 1, "status": "active", "title": "ダミースロット10", "createdAt": "2025-09-15 12:00:00", "updatedAt": "2025-09-15 12:00:00" },
+    { "id": "sl_11", "storeId": "st_1", "clientId": "cl_1", "startAt": "2025-09-24 13:00:00", "endAt": "2025-09-24 14:00:00", "capacity": 2, "status": "active", "title": "ダミースロット11", "createdAt": "2025-09-15 12:00:00", "updatedAt": "2025-09-15 12:00:00" },
+    { "id": "sl_12", "storeId": "st_2",                      "startAt": "2025-09-24 15:00:00", "endAt": "2025-09-24 17:00:00", "capacity": 3, "status": "active", "title": "ダミースロット12", "createdAt": "2025-09-15 12:00:00", "updatedAt": "2025-09-15 12:00:00" },
+    { "id": "sl_13", "storeId": "st_1", "clientId": "cl_1", "startAt": "2025-09-24 16:00:00", "endAt": "2025-09-24 17:00:00", "capacity": 1, "status": "active", "title": "ダミースロット13", "createdAt": "2025-09-15 12:00:00", "updatedAt": "2025-09-15 12:00:00" },
+    { "id": "sl_14", "storeId": "st_2",                      "startAt": "2025-09-25 09:00:00", "endAt": "2025-09-25 11:00:00", "capacity": 2, "status": "active", "title": "ダミースロット14", "createdAt": "2025-09-15 12:00:00", "updatedAt": "2025-09-15 12:00:00" },
+    { "id": "sl_15", "storeId": "st_1", "clientId": "cl_1", "startAt": "2025-09-25 11:00:00", "endAt": "2025-09-25 13:00:00", "capacity": 3, "status": "active", "title": "ダミースロット15", "createdAt": "2025-09-15 12:00:00", "updatedAt": "2025-09-15 12:00:00" },
+    { "id": "sl_16", "storeId": "st_2",                      "startAt": "2025-09-25 13:00:00", "endAt": "2025-09-25 15:00:00", "capacity": 1, "status": "active", "title": "ダミースロット16", "createdAt": "2025-09-15 12:00:00", "updatedAt": "2025-09-15 12:00:00" },
+    { "id": "sl_17", "storeId": "st_1", "clientId": "cl_1", "startAt": "2025-09-25 15:00:00", "endAt": "2025-09-25 16:00:00", "capacity": 2, "status": "active", "title": "ダミースロット17", "createdAt": "2025-09-15 12:00:00", "updatedAt": "2025-09-15 12:00:00" },
+    { "id": "sl_18", "storeId": "st_2",                      "startAt": "2025-09-26 10:00:00", "endAt": "2025-09-26 12:00:00", "capacity": 3, "status": "active", "title": "ダミースロット18", "createdAt": "2025-09-15 12:00:00", "updatedAt": "2025-09-15 12:00:00" },
+    { "id": "sl_19", "storeId": "st_1", "clientId": "cl_1", "startAt": "2025-09-27 09:00:00", "endAt": "2025-09-27 10:00:00", "capacity": 1, "status": "active", "title": "ダミースロット19", "createdAt": "2025-09-15 12:00:00", "updatedAt": "2025-09-15 12:00:00" },
+    { "id": "sl_20", "storeId": "st_2",                      "startAt": "2025-09-27 14:00:00", "endAt": "2025-09-27 15:00:00", "capacity": 2, "status": "active", "title": "ダミースロット20", "createdAt": "2025-09-15 12:00:00", "updatedAt": "2025-09-15 12:00:00" }
+  ],
+  "reservations": [
+    { "id": "r_1", "slotId": "sl_1", "userId": "u_1", "status": "confirmed", "createdAt": "2025-09-15 12:00:00", "updatedAt": "2025-09-15 12:00:00" },
+    { "id": "r_2", "slotId": "sl_2", "userId": "u_2", "status": "draft", "createdAt": "2025-09-15 12:00:00", "updatedAt": "2025-09-15 12:00:00" }
+  ]
+}
