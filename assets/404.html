@@ -10,7 +10,7 @@
     if (parts.length >= 2) {
       var repo = '/' + parts[0];
       var app = parts[1];
-      if (app === 'user' || app === 'store' || app === 'client') {
+      if (app === 'user' || app === 'store' || app === 'client' || app === 'admin') {
         var target = repo + '/' + app + '/';
         location.replace(target);
         return;
@@ -24,4 +24,3 @@
     }
   })();
 </script>
-
