@@ -11,6 +11,16 @@ export default {
       screens: { '2xl': '1400px' },
     },
     extend: {
+      fontFamily: {
+        sans: [
+          '"Yu Gothic"',
+          '"游ゴシック体"',
+          '"Hiragino Sans"',
+          '"ヒラギノ角ゴ ProN"',
+          'Meiryo',
+          'sans-serif',
+        ],
+      },
       colors: {
         border: 'hsl(var(--border))',
         input: 'hsl(var(--input))',
@@ -45,6 +55,9 @@ export default {
           DEFAULT: 'hsl(var(--card))',
           foreground: 'hsl(var(--card-foreground))',
         },
+      },
+      boxShadow: {
+        soft: 'var(--shadow-soft)',
       },
       borderRadius: {
         lg: 'var(--radius)',

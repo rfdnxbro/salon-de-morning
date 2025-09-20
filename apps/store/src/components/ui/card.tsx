@@ -1,5 +1,4 @@
 /// <reference types="react" />
-
 type DivProps = React.HTMLAttributes<HTMLDivElement>;
 
 function cx(...classes: Array<string | undefined>) {
@@ -7,26 +6,28 @@ function cx(...classes: Array<string | undefined>) {
 }
 
 export const Card = ({ className, ...props }: DivProps) => (
-  <div className={cx('rounded-lg border bg-card text-card-foreground shadow-sm', className)} {...props} />
+  <div
+    className={cx('rounded-xl border border-border/80 bg-card text-card-foreground shadow-soft', className)}
+    {...props}
+  />
 );
 
 export const CardHeader = ({ className, ...props }: DivProps) => (
-  <div className={cx('flex flex-col space-y-1.5 p-6', className)} {...props} />
+  <div className={cx('flex flex-col gap-2 px-5 py-5 md:px-6 md:py-6', className)} {...props} />
 );
 
 export const CardTitle = ({ className, ...props }: DivProps) => (
-  <h3 className={cx('text-lg font-semibold leading-none tracking-tight', className)} {...props} />
+  <h3 className={cx('text-lg font-semibold leading-tight text-foreground md:text-xl', className)} {...props} />
 );
 
 export const CardDescription = ({ className, ...props }: DivProps) => (
-  <p className={cx('text-sm text-muted-foreground', className)} {...props} />
+  <p className={cx('text-sm leading-relaxed text-muted-foreground md:text-base', className)} {...props} />
 );
 
 export const CardContent = ({ className, ...props }: DivProps) => (
-  <div className={cx('p-6 pt-0', className)} {...props} />
+  <div className={cx('px-5 pb-5 pt-0 md:px-6', className)} {...props} />
 );
 
 export const CardFooter = ({ className, ...props }: DivProps) => (
-  <div className={cx('flex items-center p-6 pt-0', className)} {...props} />
+  <div className={cx('flex items-center gap-3 px-5 pb-5 pt-0 md:px-6', className)} {...props} />
 );
-
