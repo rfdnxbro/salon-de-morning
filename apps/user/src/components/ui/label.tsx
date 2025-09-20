@@ -1,5 +1,4 @@
 /// <reference types="react" />
-
 export interface LabelProps extends React.LabelHTMLAttributes<HTMLLabelElement> {}
 
 function cx(...classes: Array<string | undefined>) {
@@ -9,10 +8,9 @@ function cx(...classes: Array<string | undefined>) {
 export const Label = ({ className, ...props }: LabelProps) => (
   <label
     className={cx(
-      'text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70',
+      'text-base font-semibold leading-snug text-foreground/90 peer-disabled:cursor-not-allowed peer-disabled:opacity-60',
       className,
     )}
     {...props}
   />
 );
-

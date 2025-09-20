@@ -10,13 +10,13 @@ export const Input = ({ className, type = 'text', ...props }: InputProps) => (
   <input
     type={type}
     className={cx(
-      'flex h-9 w-full rounded-md border border-input bg-background px-3 py-1 text-sm',
-      'ring-offset-background file:border-0 file:bg-transparent file:text-sm file:font-medium',
-      'placeholder:text-muted-foreground focus-visible:outline-none focus-visible:ring-2',
-      'focus-visible:ring-ring focus-visible:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50',
+      'block w-full min-h-[3rem] rounded-xl border-2 border-input/80 bg-background px-4 py-2.5 text-base font-medium',
+      'transition-all duration-150 ease-out shadow-sm shadow-primary/5 placeholder:text-muted-foreground/80',
+      'ring-offset-background file:border-0 file:bg-transparent file:text-base file:font-medium',
+      'focus-visible:outline-none focus-visible:border-primary focus-visible:ring-4 focus-visible:ring-primary/20 focus-visible:ring-offset-0',
+      'disabled:cursor-not-allowed disabled:opacity-60',
       className,
     )}
     {...props}
   />
 );
-
