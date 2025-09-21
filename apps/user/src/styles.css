@@ -71,7 +71,7 @@
 
 @layer base {
   html {
-    font-size: clamp(16px, 15px + 0.4vw, 19px);
+    font-size: clamp(18px, 17px + 0.4vw, 21px);
     scroll-behavior: smooth;
   }
 
