@@ -1,10 +1,15 @@
 export type UserRouteKey = 'dashboard' | 'salons' | 'reservations';
 
+import type { LucideIcon } from 'lucide-react';
+import { CalendarCheck2, HeartPulse, MapPin } from 'lucide-react';
+
 export interface UserRouteMeta {
   key: UserRouteKey;
   label: string;
   description: string;
   to: string;
+  icon: LucideIcon;
+  accent: 'primary' | 'secondary' | 'neutral';
 }
 
 export const userRoutes: readonly UserRouteMeta[] = [
@@ -13,18 +18,24 @@ export const userRoutes: readonly UserRouteMeta[] = [
     label: 'ダッシュボード',
     description: '今日の予定やおすすめ情報を確認できます',
     to: 'dashboard',
+    icon: HeartPulse,
+    accent: 'primary',
   },
   {
     key: 'salons',
     label: 'サロン一覧',
     description: '近くのサロンや空き状況を確認できます',
     to: 'salons',
+    icon: MapPin,
+    accent: 'secondary',
   },
   {
     key: 'reservations',
     label: '予約一覧',
     description: '過去と今後の予約をまとめて確認できます',
     to: 'reservations',
+    icon: CalendarCheck2,
+    accent: 'neutral',
   },
 ] as const;
 

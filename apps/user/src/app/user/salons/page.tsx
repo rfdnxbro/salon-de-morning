@@ -29,90 +29,105 @@ export function SalonsPage() {
   );
 
   return (
-    <div className="grid gap-8" aria-labelledby="salon-heading">
-      <header className="space-y-4">
-        <h1 id="salon-heading" className="text-3xl font-bold text-foreground md:text-4xl">
-          サロン一覧
-        </h1>
-        <p className="text-lg leading-relaxed text-muted-foreground md:text-xl">
-          ご自宅から通いやすいサロンをお選びください。各枠はスタッフのサポート付きで、必要に応じて付き添いも手配できます。
-        </p>
+    <div className="flex flex-col gap-10" aria-labelledby="salon-heading">
+      <header className="space-y-6 rounded-[2rem] border border-primary/15 bg-primary/5 p-6 lg:p-8">
+        <div className="space-y-3">
+          <h1 id="salon-heading" className="text-[2.1rem] font-bold text-primary lg:text-[2.5rem]">
+            サロン一覧（ご自宅から近い順）
+          </h1>
+          <p className="text-lg leading-relaxed text-primary/80 lg:text-xl">
+            徒歩や送り迎えがしやすい拠点を優先表示しています。気になるサロンはカード下部のボタンから相談できます。
+          </p>
+        </div>
+        <div className="rounded-[1.75rem] border border-primary/20 bg-white/80 p-5 text-base text-muted-foreground lg:text-lg">
+          <p className="font-semibold text-primary">迷ったときは「電話で予約を相談する」を押してください。</p>
+          <p>スタッフが候補を一緒に整理します。</p>
+        </div>
       </header>
 
-      <section aria-label="サロンカード一覧" className="grid gap-6">
+      <section aria-label="サロンカード一覧" className="flex flex-col gap-8">
         {storeSummaries.map((summary) => (
-          <Card key={summary.store.id} className="border-none bg-card/95 shadow-soft">
-            <CardHeader className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
-              <div className="space-y-2">
-                <CardTitle className="text-2xl text-foreground md:text-3xl">
+          <Card
+            key={summary.store.id}
+            className="rounded-[2.25rem] border border-primary/20 bg-card/95 shadow-soft"
+          >
+            <CardHeader className="flex flex-col gap-5">
+              <div className="space-y-3">
+                <CardTitle className="text-2xl text-foreground lg:text-[2.2rem]">
                   {summary.store.name}
                 </CardTitle>
-                <CardDescription className="text-lg text-muted-foreground md:text-xl">
+                <CardDescription className="text-lg text-muted-foreground lg:text-xl">
                   {summary.store.address}
                 </CardDescription>
               </div>
-              <div className="flex flex-col items-start gap-2 md:items-end">
-                <Badge variant={summary.totalUpcoming > 0 ? 'secondary' : 'outline'} className="text-base">
+              <div className="flex flex-col items-start gap-2 text-left">
+                <Badge
+                  variant={summary.totalUpcoming > 0 ? 'secondary' : 'outline'}
+                  className="rounded-full px-4 py-1 text-base lg:text-lg"
+                >
                   {summary.totalUpcoming > 0 ? `空き ${summary.totalUpcoming} 枠` : '次回枠を調整中'}
                 </Badge>
                 {summary.maxCapacity > 0 && (
-                  <p className="text-base text-muted-foreground md:text-lg">
-                    最大 {summary.maxCapacity} 名まで一緒にご利用いただけます
+                  <p className="text-base text-muted-foreground lg:text-lg">
+                    最大 {summary.maxCapacity} 名までご利用いただけます
                   </p>
                 )}
               </div>
             </CardHeader>
-            <CardContent className="grid gap-6 md:grid-cols-[1.2fr_0.8fr]">
-              <div className="space-y-4">
-                <h2 className="text-xl font-semibold text-foreground md:text-2xl">直近の空き枠</h2>
+
+            <CardContent className="flex flex-col gap-6">
+              <div className="space-y-5">
+                <h2 className="text-xl font-semibold text-foreground lg:text-2xl">直近の空き枠</h2>
                 {summary.upcomingSlots.length > 0 ? (
-                  <ol className="space-y-3" aria-label={`${summary.store.name} の空き枠`}>
+                  <ol className="space-y-4" aria-label={`${summary.store.name} の空き枠`}>
                     {summary.upcomingSlots.slice(0, 4).map((slot) => (
                       <li
                         key={slot.id}
-                        className="flex flex-col gap-2 rounded-2xl border-2 border-border bg-muted/30 px-4 py-3"
+                        className="flex flex-col gap-2 rounded-[1.75rem] border border-border/60 bg-muted/40 px-4 py-4"
                       >
-                        <p className="text-lg font-semibold text-foreground md:text-xl">
+                        <p className="text-lg font-semibold text-foreground lg:text-xl">
                           {slotFormatter.format(slot.startAt)} 開始
                         </p>
-                        <p className="text-base text-muted-foreground md:text-lg">
+                        <p className="text-base text-muted-foreground lg:text-lg">
                           終了予定: {timeFormatter.format(slot.endAt)} / 定員 {slot.capacity} 名
                         </p>
                         {slot.title && (
-                          <p className="text-base text-muted-foreground md:text-lg">内容: {slot.title}</p>
+                          <p className="text-base text-muted-foreground lg:text-lg">内容: {slot.title}</p>
                         )}
                       </li>
                     ))}
                     {summary.upcomingSlots.length > 4 && (
-                      <li className="text-base text-muted-foreground md:text-lg">
-                        ほか {summary.upcomingSlots.length - 4} 枠ございます。ゆっくりお選びください。
+                      <li className="text-base text-muted-foreground lg:text-lg">
+                        ほか {summary.upcomingSlots.length - 4} 枠ございます。スタッフが最適な枠をご案内します。
                       </li>
                     )}
                   </ol>
                 ) : (
-                  <p className="text-base text-muted-foreground md:text-lg">
-                    現在次の枠を準備中です。ご希望があればスタッフが優先的にお知らせします。
+                  <p className="text-base text-muted-foreground lg:text-lg">
+                    現在次の枠を準備中です。ご希望の曜日や時間帯を教えていただければ、優先的にご連絡します。
                   </p>
                 )}
               </div>
 
-              <div className="flex flex-col gap-3">
+              <div className="flex flex-col gap-4 rounded-[1.75rem] border border-primary/20 bg-primary/5 p-5">
+                <p className="text-base font-semibold text-primary lg:text-lg">
+                  ボタンを押すとスタッフが順番に対応します。落ち着いてお待ちください。
+                </p>
                 <Button type="button" size="lg" className="w-full justify-center">
                   電話で予約を相談する
                 </Button>
                 <Button type="button" size="lg" variant="outline" className="w-full justify-center">
                   サロンの詳細を聞く
                 </Button>
-                <p className="text-sm text-muted-foreground md:text-base">
-                  ご家族の同席や送迎のご相談も受け付けています。お気軽にお問い合わせください。
-                </p>
+                <p className="text-sm text-muted-foreground lg:text-base">送迎や同席の希望もお伺いします。</p>
               </div>
             </CardContent>
           </Card>
         ))}
+
         {!hasUpcoming && (
-          <div className="rounded-3xl border-2 border-dashed border-border bg-muted/20 px-6 py-8 text-center text-lg text-muted-foreground md:text-xl">
-            現在は予約枠の準備中です。お困りの場合はお電話での相談をご利用ください。（050-1234-5678）
+          <div className="rounded-[2rem] border-2 border-dashed border-border bg-muted/30 px-6 py-10 text-center text-lg text-muted-foreground lg:text-xl">
+            現在は調整中です。お急ぎの方はお電話（050-1234-5678）でご相談ください。
           </div>
         )}
       </section>
