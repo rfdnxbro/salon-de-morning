@@ -15,7 +15,20 @@ const dateRangeFormatter = new Intl.DateTimeFormat('ja-JP', {
 });
 
 export function ReservationsPage() {
-  const { reservationSummaries } = useOutletContext<UserOutletContext>();
+  const context = useOutletContext<UserOutletContext>();
+  return context.audience === 'family' ? (
+    <FamilyReservations context={context} />
+  ) : (
+    <SeniorReservations context={context} />
+  );
+}
+
+interface ReservationsViewProps {
+  context: UserOutletContext;
+}
+
+function SeniorReservations({ context }: ReservationsViewProps) {
+  const { reservationSummaries } = context;
 
   const { upcoming, past } = useMemo(() => {
     const upcomingReservations = reservationSummaries.filter((reservation) => reservation.isUpcoming);
@@ -45,89 +58,196 @@ export function ReservationsPage() {
         </div>
       </header>
 
-      <section aria-label="これからの予約" className="flex flex-col gap-5">
-        <h2 className="text-2xl font-semibold text-foreground lg:text-3xl">これからの予約</h2>
-        {upcoming.length > 0 ? (
-          <ol className="flex flex-col gap-5">
-            {upcoming.map((reservation) => (
-              <li key={reservation.id}>
-                <ReservationCard kind="upcoming" item={reservation} />
-              </li>
-            ))}
-          </ol>
-        ) : (
-          <p className="rounded-[2rem] border-2 border-dashed border-border bg-muted/30 px-6 py-10 text-center text-lg text-muted-foreground lg:text-xl">
-            直近の予約はありません。気になるサロンがあれば一覧からご予約いただけます。
-          </p>
-        )}
-      </section>
-
-      <section aria-label="これまでの予約" className="flex flex-col gap-5">
-        <h2 className="text-2xl font-semibold text-foreground lg:text-3xl">これまでの予約</h2>
-        {past.length > 0 ? (
-          <ol className="flex flex-col gap-5">
-            {past.map((reservation) => (
-              <li key={reservation.id}>
-                <ReservationCard kind="past" item={reservation} />
-              </li>
-            ))}
-          </ol>
-        ) : (
-          <p className="text-lg text-muted-foreground lg:text-xl">
-            過去の利用履歴はまだありません。訪問が完了するとこちらに表示されます。
-          </p>
-        )}
-      </section>
+      <UpcomingReservations audience="senior" reservations={upcoming} />
+      <PastReservations audience="senior" reservations={past} />
     </div>
   );
 }
 
+function FamilyReservations({ context }: ReservationsViewProps) {
+  const { reservationSummaries } = context;
+
+  const { upcoming, past } = useMemo(() => {
+    const upcomingReservations = reservationSummaries.filter((reservation) => reservation.isUpcoming);
+    const pastReservations = reservationSummaries.filter((reservation) => !reservation.isUpcoming);
+    return { upcoming: upcomingReservations, past: pastReservations };
+  }, [reservationSummaries]);
+
+  return (
+    <div className="flex flex-col gap-8" aria-labelledby="reservation-heading">
+      <header className="space-y-5 rounded-2xl border border-primary/15 bg-primary/5 p-5 lg:p-6">
+        <h1 id="reservation-heading" className="text-[1.8rem] font-bold text-primary lg:text-[2.2rem]">
+          予約一覧（来場予定の確認）
+        </h1>
+        <p className="text-base leading-relaxed text-primary/80 lg:text-lg">
+          担当スタッフや会場、メモをまとめて確認できます。状態ラベルで準備段階が分かります。
+        </p>
+        <div className="grid gap-3 md:grid-cols-3">
+          <InfoCallout
+            tone="primary"
+            title="変更やキャンセルはサポートへ"
+            message="電話またはLINEでご連絡いただければスタッフが代わりに手続きを行います。"
+          />
+          <InfoCallout
+            tone="accent"
+            title="当日は10分前の到着が安心"
+            message="受付と体調ヒアリングの時間を確保するためにご協力ください。"
+          />
+          <InfoCallout
+            tone="neutral"
+            title="共有事項はメモ欄へ"
+            message="付き添いや送迎の希望など、覚えておきたい情報を残せます。"
+          />
+        </div>
+      </header>
+
+      <UpcomingReservations audience="family" reservations={upcoming} />
+      <PastReservations audience="family" reservations={past} />
+    </div>
+  );
+}
+
+interface UpcomingProps {
+  audience: 'senior' | 'family';
+  reservations: UserOutletContext['reservationSummaries'];
+}
+
+function UpcomingReservations({ audience, reservations }: UpcomingProps) {
+  const headingClass = audience === 'family' ? 'text-xl font-semibold text-foreground lg:text-2xl' : 'text-2xl font-semibold text-foreground lg:text-3xl';
+  return (
+    <section aria-label="これからの予約" className="flex flex-col gap-4">
+      <h2 className={headingClass}>これからの予約</h2>
+      {reservations.length > 0 ? (
+        <ol className="flex flex-col gap-4">
+          {reservations.map((reservation) => (
+            <li key={reservation.id}>
+              <ReservationCard audience={audience} kind="upcoming" item={reservation} />
+            </li>
+          ))}
+        </ol>
+      ) : (
+        <p
+          className={
+            audience === 'family'
+              ? 'rounded-2xl border-2 border-dashed border-border bg-muted/30 px-5 py-8 text-center text-sm text-muted-foreground lg:text-base'
+              : 'rounded-[2rem] border-2 border-dashed border-border bg-muted/30 px-6 py-10 text-center text-lg text-muted-foreground lg:text-xl'
+          }
+        >
+          直近の予約はありません。新しい予約は「サロン一覧」からお申し込みください。
+        </p>
+      )}
+    </section>
+  );
+}
+
+function PastReservations({ audience, reservations }: UpcomingProps) {
+  const headingClass = audience === 'family' ? 'text-xl font-semibold text-foreground lg:text-2xl' : 'text-2xl font-semibold text-foreground lg:text-3xl';
+  return (
+    <section aria-label="これまでの予約" className="flex flex-col gap-4">
+      <h2 className={headingClass}>これまでの予約</h2>
+      {reservations.length > 0 ? (
+        <ol className="flex flex-col gap-4">
+          {reservations.map((reservation) => (
+            <li key={reservation.id}>
+              <ReservationCard audience={audience} kind="past" item={reservation} />
+            </li>
+          ))}
+        </ol>
+      ) : (
+        <p className={audience === 'family' ? 'text-sm text-muted-foreground lg:text-base' : 'text-lg text-muted-foreground lg:text-xl'}>
+          過去の利用履歴はまだありません。利用後にこちらへ自動的に反映されます。
+        </p>
+      )}
+    </section>
+  );
+}
+
 interface ReservationCardProps {
+  audience: 'senior' | 'family';
   item: UserOutletContext['reservationSummaries'][number];
   kind: 'upcoming' | 'past';
 }
 
-function ReservationCard({ item, kind }: ReservationCardProps) {
+function ReservationCard({ audience, item, kind }: ReservationCardProps) {
   const toneClass =
     item.tone === 'positive'
-      ? 'border-primary/60 bg-primary/10'
+      ? 'border-primary/60 bg-primary/8'
       : item.tone === 'attention'
         ? 'border-accent/60 bg-accent/12'
         : 'border-border/60 bg-card/90';
 
+  const shellClass =
+    audience === 'family'
+      ? 'flex flex-col gap-4 rounded-2xl border-2 px-5 py-5 shadow-soft transition-colors'
+      : 'flex flex-col gap-5 rounded-[2rem] border-2 px-6 py-6 shadow-soft transition-colors';
+
   return (
-    <Card
-      className={cn(
-        'flex flex-col gap-5 rounded-[2rem] border-2 px-6 py-6 shadow-soft transition-colors',
-        toneClass,
-      )}
-    >
-      <CardHeader className="flex flex-col gap-4">
-        <div className="space-y-2">
-          <CardTitle className="text-2xl text-foreground lg:text-[2.1rem]">{item.storeName}</CardTitle>
-          <CardDescription className="text-lg text-muted-foreground lg:text-xl">
+    <Card className={cn(shellClass, toneClass)}>
+      <CardHeader className={audience === 'family' ? 'flex flex-col gap-3' : 'flex flex-col gap-4'}>
+        <div className="space-y-1">
+          <CardTitle className={audience === 'family' ? 'text-lg text-foreground lg:text-xl' : 'text-2xl text-foreground lg:text-[2.1rem]'}>
+            {item.storeName}
+          </CardTitle>
+          <CardDescription className={audience === 'family' ? 'text-sm text-muted-foreground lg:text-base' : 'text-lg text-muted-foreground lg:text-xl'}>
             {dateRangeFormatter.format(item.startAt)} ～ {dateRangeFormatter.format(item.endAt)}
           </CardDescription>
         </div>
-        <Badge variant="secondary" className="rounded-full px-4 py-1 text-base lg:text-lg">
+        <Badge
+          variant="secondary"
+          className={audience === 'family' ? 'w-fit rounded-full px-3 py-1 text-xs lg:text-sm' : 'rounded-full px-4 py-1 text-base lg:text-lg'}
+        >
           状態: {item.statusLabel}
         </Badge>
       </CardHeader>
-      <CardContent className="space-y-4 text-base text-muted-foreground lg:text-lg">
+      <CardContent className={audience === 'family' ? 'space-y-3 text-sm text-muted-foreground lg:text-base' : 'space-y-4 text-base text-muted-foreground lg:text-lg'}>
         {item.slotTitle && <p>メニュー: {item.slotTitle}</p>}
         <p>利用者: {item.userName}</p>
         {item.clientName && <p>担当医療機関: {item.clientName}</p>}
-        {item.note && <p>メモ: {item.note}</p>}
+        <p>メモ: {item.note ?? '特記事項はありません。'}</p>
         {kind === 'upcoming' ? (
-          <p className="rounded-[1.5rem] bg-white/70 px-4 py-3 text-sm text-muted-foreground lg:text-base">
-            ご不安な点は前日までにお気軽にご相談ください。
+          <p
+            className={
+              audience === 'family'
+                ? 'rounded-xl bg-white/70 px-3 py-2 text-xs text-muted-foreground lg:text-sm'
+                : 'rounded-[1.5rem] bg-white/70 px-4 py-3 text-sm text-muted-foreground lg:text-base'
+            }
+          >
+            ご不安な点は前日までにサポートへご相談ください。
           </p>
         ) : (
-          <p className="rounded-[1.5rem] bg-muted/40 px-4 py-3 text-sm text-muted-foreground lg:text-base">
+          <p
+            className={
+              audience === 'family'
+                ? 'rounded-xl bg-muted/40 px-3 py-2 text-xs text-muted-foreground lg:text-sm'
+                : 'rounded-[1.5rem] bg-muted/40 px-4 py-3 text-sm text-muted-foreground lg:text-base'
+            }
+          >
             次回のご希望があればスタッフまでお知らせください。
           </p>
         )}
       </CardContent>
     </Card>
+  );
+}
+
+interface InfoCalloutProps {
+  title: string;
+  message: string;
+  tone: 'primary' | 'accent' | 'neutral';
+}
+
+function InfoCallout({ title, message, tone }: InfoCalloutProps) {
+  const toneClass =
+    tone === 'accent'
+      ? 'border-accent/40 bg-accent/10 text-accent-foreground'
+      : tone === 'neutral'
+        ? 'border-muted bg-muted/30 text-muted-foreground'
+        : 'border-primary/25 bg-white/85 text-primary';
+
+  return (
+    <div className={cn('rounded-xl border px-4 py-4 text-sm lg:text-base', toneClass)}>
+      <p className="font-semibold">{title}</p>
+      <p className="mt-1 text-xs leading-relaxed opacity-80 lg:text-sm">{message}</p>
+    </div>
   );
 }
