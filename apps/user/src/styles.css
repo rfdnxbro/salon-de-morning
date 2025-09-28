@@ -36,6 +36,39 @@
     --shadow-soft: 0 26px 56px -26px rgba(21, 63, 92, 0.32);
   }
 
+  :root[data-audience='family'] {
+    --background: 210 40% 98%;
+    --foreground: 215 28% 18%;
+
+    --muted: 210 20% 92%;
+    --muted-foreground: 215 16% 34%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 215 28% 18%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 215 28% 18%;
+
+    --border: 208 22% 82%;
+    --input: 208 22% 80%;
+    --ring: 204 80% 40%;
+
+    --primary: 204 78% 42%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 170 44% 78%;
+    --secondary-foreground: 176 52% 18%;
+
+    --accent: 32 90% 56%;
+    --accent-foreground: 36 100% 98%;
+
+    --destructive: 358 70% 45%;
+    --destructive-foreground: 0 0% 100%;
+
+    --radius: 1rem;
+    --shadow-soft: 0 20px 48px -24px rgba(21, 63, 92, 0.2);
+  }
+
   .dark {
     --background: 217 33% 12%;
     --foreground: 36 48% 92%;
@@ -74,6 +107,30 @@
     font-size: clamp(19px, 18px + 0.45vw, 22px);
     scroll-behavior: smooth;
   }
+
+  html[data-audience='family'] {
+    font-size: clamp(16px, 15px + 0.3vw, 18px);
+  }
+
+  html[data-audience='family'] body {
+    line-height: 1.6;
+    background-image:
+      radial-gradient(160% 90% at 10% 0%, rgba(44, 126, 174, 0.12) 0%, rgba(44, 126, 174, 0) 45%),
+      radial-gradient(100% 60% at 90% 10%, rgba(255, 194, 132, 0.12) 0%, rgba(255, 194, 132, 0) 55%),
+      radial-gradient(120% 100% at 50% 90%, rgba(191, 233, 227, 0.16) 0%, rgba(191, 233, 227, 0) 65%),
+      hsl(var(--background));
+  }
+
+  html[data-audience='family'] button,
+  html[data-audience='family'] [role='button'] {
+    min-height: 2.75rem;
+  }
+
+  html[data-audience='family'] ::selection {
+    background: hsla(var(--primary) / 0.18);
+    color: hsl(var(--foreground));
+  }
+
 
   * {
     @apply border-border;

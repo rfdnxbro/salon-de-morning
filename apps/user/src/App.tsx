@@ -10,11 +10,19 @@ export function App() {
   return (
     <BrowserRouter basename={basename}>
       <Routes>
-        <Route path="/" element={<UserLayout />}>
+        <Route path="/" element={<UserLayout audience="senior" />}>
           <Route index element={<Navigate to="dashboard" replace />} />
           <Route path="dashboard" element={<DashboardPage />} />
           <Route path="salons" element={<SalonsPage />} />
           <Route path="reservations" element={<ReservationsPage />} />
+          <Route path="*" element={<Navigate to="dashboard" replace />} />
+        </Route>
+        <Route path="family" element={<UserLayout audience="family" />}>
+          <Route index element={<Navigate to="dashboard" replace />} />
+          <Route path="dashboard" element={<DashboardPage />} />
+          <Route path="salons" element={<SalonsPage />} />
+          <Route path="reservations" element={<ReservationsPage />} />
+          <Route path="*" element={<Navigate to="dashboard" replace />} />
         </Route>
         <Route path="*" element={<Navigate to="/dashboard" replace />} />
       </Routes>
